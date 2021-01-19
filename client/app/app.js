@@ -1,7 +1,7 @@
 /**
  * app.js
  *
- * This is the entry file for the application, only setup and boilerplate
+ * This is the entry file for the application
  * code.
  */
 
@@ -62,10 +62,7 @@ if (tokenWithBearer) {
       const user = {
         id: decoded.id,
         name: decoded.name,
-        avatar: decoded.avatar,
         email: decoded.email,
-        roles: decoded.roles,
-        email_verified: decoded.email_verified,
         routes: routes,
       };
     }
