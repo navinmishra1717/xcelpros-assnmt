@@ -10,7 +10,7 @@ import {
 import Api from 'utils/Api';
 import * as types from './constants';
 import * as actions from './actions';
-import { loadForecastFailure } from '../ForecastPage/actions';
+import { loadLoginFailure } from '../LoginUserPage/actions';
 
 function* loadContent(action) {
   yield call(

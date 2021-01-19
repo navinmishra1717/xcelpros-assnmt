@@ -34,10 +34,11 @@ import App from './containers/App';
 
 import configureStore from './configureStore';
 
-import './styles.css';
+import 'app.css';
 
 // Import i18n messages
 import { translationMessages } from './i18n';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 // Create redux store with history
 const initialState = {};
@@ -85,11 +86,13 @@ const render = messages => {
     <Provider store={store}>
       <LanguageProvider messages={messages}>
         <MuiThemeProvider theme={theme}>
-          <ConnectedRouter history={history}>
-            <SnackbarProvider maxSnack={3}>
-              <App />
-            </SnackbarProvider>
-          </ConnectedRouter>
+          <CssBaseline>
+            <ConnectedRouter history={history}>
+              <SnackbarProvider maxSnack={3}>
+                <App />
+              </SnackbarProvider>
+            </ConnectedRouter>
+          </CssBaseline>
         </MuiThemeProvider>
       </LanguageProvider>
     </Provider>,
