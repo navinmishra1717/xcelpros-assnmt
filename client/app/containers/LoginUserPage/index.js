@@ -28,120 +28,138 @@ import Loading from '../../components/Loading';
 import reducer from './reducer';
 import saga from './saga';
 import * as mapDispatchToProps from './actions';
-import { makeSelectLoading } from './selectors';
+import {
+  makeSelectLoading,
+  makeSelectEmail,
+  makeSelectPassword,
+} from './selectors';
 
-class LoginUserPage extends React.Component {
-  // eslint-disable-line react/prefer-stateless-function
-  static propTypes = {
-    classes: PropTypes.object.isRequired,
-    loading: PropTypes.bool.isRequired,
+const LoginUserPage = ({
+  classes,
+  loading,
+  errors,
+  email,
+  password,
+  ...restProps
+}) => {
+  const handleChange = e => {
+    e.persist();
+    restProps.setStoreValue({ key: e.target.name, value: e.target.value });
   };
-  state = {};
-  handleChange = e => {};
-  render() {
-    const { classes, loading, errors } = this.props;
-    return loading ? (
-      <Loading />
-    ) : (
-      <>
-        <Helmet>
-          <title> Login page </title>
-        </Helmet>
-        <div className="bgLogin">
-          <div
-            className="flex-center"
-            style={{ maxWidth: '25%', height: '100vh', fontSize: 75 }}
-          >
-            <p>Hello</p>
-          </div>
-          <div className="formWrapper flex-center">
-            <div className="flex1 text-center">
-              <AccountCircle fontSize="large" />
-              <Typography
-                component="h2"
-                variant="h4"
-                gutterBottom
-                style={{ color: 'blue' }}
-              >
-                Login
-              </Typography>
-              <div className="flex-center">
-                <p>Don't have an account?</p>
-                <Link to="/register">
-                  <h4 style={{ paddingLeft: 8 }}>Sign up</h4>
-                </Link>
+
+  const handleSubmit = e => {
+    e.preventDefault();
+  };
+
+  return loading ? (
+    <Loading />
+  ) : (
+    <>
+      <Helmet>
+        <title> Login page </title>
+      </Helmet>
+      <div className="bgLogin">
+        <div
+          className="flex-center"
+          style={{ maxWidth: '25%', height: '100vh', fontSize: 75 }}
+        >
+          <p>Hello</p>
+        </div>
+        <div className="formWrapper flex-center">
+          <div className="flex1 text-center">
+            <AccountCircle fontSize="large" />
+            <Typography
+              component="h2"
+              variant="h4"
+              gutterBottom
+              style={{ color: 'blue' }}
+            >
+              Login
+            </Typography>
+            <div className="flex-center">
+              <p>Don't have an account?</p>
+              <Link to="/register">
+                <h4 style={{ paddingLeft: 8 }}>Sign up</h4>
+              </Link>
+            </div>
+            <br />
+            <form
+              className="hasinput400"
+              onSubmit={handleSubmit}
+              style={{ display: 'inline-block' }}
+            >
+              <div className={errors ? 'error' : ''}>
+                <Grid container spacing={16} alignItems="flex-end">
+                  <Grid item>
+                    <EmailOutlined />
+                  </Grid>
+                  <Grid item>
+                    <TextField
+                      fullWidth
+                      label="Email Address"
+                      type="email"
+                      name="email"
+                      placeholder="abc@gmail.com"
+                      onChange={handleChange}
+                      value={email || ''}
+                      variant="outlined"
+                    />
+                  </Grid>
+                </Grid>
+                {!!errors && <span>{errors}</span>}
               </div>
               <br />
-              <form
-                className="hasinput400"
-                onSubmit={this.handleChange}
-                style={{ display: 'inline-block' }}
-              >
-                <div className={errors ? 'error' : ''}>
-                  <Grid container spacing={16} alignItems="flex-end">
-                    <Grid item>
-                      <EmailOutlined />
-                    </Grid>
-                    <Grid item>
-                      <TextField
-                        fullWidth
-                        label="Email Address"
-                        type="email"
-                        name="email"
-                        placeholder="abc@gmail.com"
-                        onChange={this.handleChange}
-                        value=""
-                        variant="outlined"
-                      />
-                    </Grid>
+              <br />
+              <div className={errors ? 'error' : ''}>
+                <Grid container spacing={16} alignItems="flex-end">
+                  <Grid item>
+                    <LockOutlined />
                   </Grid>
-                  {!!errors && <span>{errors}</span>}
-                </div>
-                <br />
-                <br />
-                <div className={errors ? 'error' : ''}>
-                  <Grid container spacing={16} alignItems="flex-end">
-                    <Grid item>
-                      <LockOutlined />
-                    </Grid>
-                    <Grid item>
-                      <TextField
-                        fullWidth
-                        label="Password"
-                        name="password"
-                        type="password"
-                        placeholder="Enter your password"
-                        onChange={this.handleChange}
-                        value={''}
-                        variant="outlined"
-                      />
-                    </Grid>
+                  <Grid item>
+                    <TextField
+                      fullWidth
+                      label="Password"
+                      name="password"
+                      // type="password"
+                      placeholder="Enter your password"
+                      onChange={handleChange}
+                      value={password || ''}
+                      variant="outlined"
+                    />
                   </Grid>
-                  {!!errors && <span>{errors}</span>}
-                </div>
-                <br />
-                <br />
-                <div className="text-right">
-                  <Button
-                    className="btn-block"
-                    color="primary"
-                    type="submit"
-                    variant="contained"
-                    disabled={false}
-                  >
-                    Login
-                  </Button>
-                </div>
-              </form>
-            </div>
+                </Grid>
+                {!!errors && <span>{errors}</span>}
+              </div>
+              <br />
+              <br />
+              <div className="text-right">
+                <Button
+                  className="btn-block"
+                  color="primary"
+                  type="submit"
+                  variant="contained"
+                  disabled={false}
+                >
+                  Login
+                </Button>
+              </div>
+            </form>
           </div>
         </div>
-      </>
-    );
-  }
-}
+      </div>
+    </>
+  );
+};
+
+LoginUserPage.prototype = {
+  email: PropTypes.string.isRequired,
+  classes: PropTypes.object.isRequired,
+  loading: PropTypes.bool.isRequired,
+};
 
 const mapStateToProps = createStructuredSelector({
+  email: makeSelectEmail(),
+  password: makeSelectPassword(),
   loading: makeSelectLoading(),
 });
 
