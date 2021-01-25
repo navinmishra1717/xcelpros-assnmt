@@ -17,8 +17,7 @@ import saga from './saga';
 
 import GlobalStyle from '../../global-styles';
 import ErrorBoundary from '../../components/ErrorBoundary';
-import LoginUserPage from '../LoginUserPage';
-import SignupUserPage from '../SignupUserPage';
+import publicLayout from '../../layouts/public';
 import Notifier from './components/Notifier';
 import { makeSelectLocation } from './selectors';
 import { enqueueSnackbar } from './actions';
@@ -27,11 +26,7 @@ const App = ({ location }) => (
   <ErrorBoundary>
     <Notifier />
     <Switch location={location}>
-      {/* <Route path="/" component={ForecastComponent} /> */}
-
-      <Route exact path="/" render={() => <Redirect to="/login" />} />
-      <Route exact path="/login" component={LoginUserPage} />
-      {/* <GuestRoute exact path="/register" component={SignupUserPage} /> */}
+      <Route path="/" component={publicLayout} />
     </Switch>
     <GlobalStyle />
   </ErrorBoundary>

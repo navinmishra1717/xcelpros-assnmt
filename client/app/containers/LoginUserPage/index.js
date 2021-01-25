@@ -1,10 +1,11 @@
 /**
  *
  * LoginUserPage
+ * using functional component method
  *
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -16,10 +17,20 @@ import { Link } from 'react-router-dom';
 // material plugins
 import withStyles from '@material-ui/core/styles/withStyles';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import { Grid, TextField, Button } from '@material-ui/core';
-import EmailOutlined from '@material-ui/icons/EmailOutlined';
-import LockOutlined from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
+import {
+  Grid,
+  TextField,
+  Button,
+  IconButton,
+  InputAdornment,
+  Typography,
+} from '@material-ui/core';
+import {
+  Visibility,
+  VisibilityOff,
+  EmailOutlined,
+  LockOutlined,
+} from '@material-ui/icons';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -42,6 +53,13 @@ const LoginUserPage = ({
   password,
   ...restProps
 }) => {
+  // state management using hooks(useState) in functional component
+  const [showPassword, setShowPassword] = useState();
+
+  const handlePasswordToggle = () => {
+    setShowPassword(state => !state);
+  };
+
   const handleChange = e => {
     e.persist();
     restProps.setStoreValue({ key: e.target.name, value: e.target.value });
@@ -117,16 +135,37 @@ const LoginUserPage = ({
                   </Grid>
                   <Grid item>
                     <TextField
-                      fullWidth
+                      style={{ width: 430 }}
                       label="Password"
                       name="password"
-                      // type="password"
+                      type={showPassword ? 'text' : 'password'}
                       placeholder="Enter your password"
                       onChange={handleChange}
                       value={password || ''}
                       variant="outlined"
+                      InputProps={{
+                        // this is where toggle button is added
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={handlePasswordToggle}
+                            >
+                              {showPassword ? (
+                                <VisibilityOff />
+                              ) : (
+                                <Visibility />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        ),
+                      }}
                     />
                   </Grid>
+                </Grid>
+                <br />
+                <Grid container>
+                  <Link to="/forgot-password">Forgot Password?</Link>
                 </Grid>
                 {!!errors && <span>{errors}</span>}
               </div>
