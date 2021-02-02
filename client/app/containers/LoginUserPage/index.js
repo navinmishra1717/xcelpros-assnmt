@@ -171,7 +171,7 @@ const LoginUserPage = ({
               </div>
               <br />
               <br />
-              <div className="text-right">
+              <div>
                 <Button
                   className="btn-block"
                   color="primary"
