@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 
 // material packages
-import { Typography, Grid, TextField } from '@material-ui/core';
+import { Typography, Grid, Button } from '@material-ui/core';
 import {} from '@material-ui/icons';
 
 // other imports
@@ -20,11 +20,12 @@ import reducer from './reducer';
 import * as mapDispatchToProps from './actions';
 import FirstnameInput from './components/firstnameInput';
 import LastnameInput from './components/lastnameInput';
+import EmailInput from './components/emailInput';
+import PasswordInput from './components/passwordInput';
 
 class SignupUserPage extends React.Component {
   render() {
     return (
-      // <div>Welcome to signup page</div>;
       <>
         <Helmet>
           <title>Signup Page</title>
@@ -49,7 +50,7 @@ class SignupUserPage extends React.Component {
                 gutterBottom
                 style={{ color: 'blue' }}
               >
-                Signup
+                Sign-up
               </Typography>
               <div className="flex-center">
                 <p>Already have an account?</p>
@@ -62,10 +63,26 @@ class SignupUserPage extends React.Component {
                 className="hasinput400"
                 // onSubmit={}
               >
-                <Grid container spacing={16}>
-                  <FirstnameInput />
-                  <LastnameInput />
-                </Grid>
+                <div>
+                  <Grid container spacing={16}>
+                    <FirstnameInput />
+                    <LastnameInput />
+                    <EmailInput />
+                    <PasswordInput />
+                  </Grid>
+                </div>
+                <br />
+                <br />
+                <div>
+                  <Button
+                    className="btn-block"
+                    color="primary"
+                    type="submit"
+                    variant="contained"
+                  >
+                    Register
+                  </Button>
+                </div>
               </form>
             </div>
           </div>

@@ -25,6 +25,18 @@ export const makeSelectLastname = () =>
     state => state.lastname,
   );
 
+export const makeSelectEmail = () =>
+  createSelector(
+    selectSignupUserPageDomain,
+    state => state.email,
+  );
+
+export const makeSelectPassword = () =>
+  createSelector(
+    selectSignupUserPageDomain,
+    state => state.password,
+  );
+
 /**
  * Default selector used by signupUserPage
  */
